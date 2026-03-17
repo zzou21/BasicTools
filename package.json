@@ -1,0 +1,23 @@
+{
+  "name": "basictools",
+  "version": "1.0.0",
+  "description": "suite of minimum computing tools",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzou21/BasicTools.git"
+  },
+  "author": "Zhihui Zou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zzou21/BasicTools/issues"
+  },
+  "homepage": "https://github.com/zzou21/BasicTools#readme",
+  "devDependencies": {
+    "electron": "^41.0.2"
+  }
+}
