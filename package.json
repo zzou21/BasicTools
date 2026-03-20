@@ -4,8 +4,12 @@
   "description": "suite of minimum computing tools",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "test"
+    "start": "electron-forge start",
+    "test": "test",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
+
   },
   "repository": {
     "type": "git",
@@ -18,6 +22,18 @@
   },
   "homepage": "https://github.com/zzou21/BasicTools#readme",
   "devDependencies": {
+    "@electron-forge/cli": "^7.11.1",
+    "@electron-forge/maker-deb": "^7.11.1",
+    "@electron-forge/maker-rpm": "^7.11.1",
+    "@electron-forge/maker-squirrel": "^7.11.1",
+    "@electron-forge/maker-zip": "^7.11.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
+    "@electron-forge/plugin-fuses": "^7.11.1",
+    "@electron-forge/publisher-github": "^7.11.1",
+    "@electron/fuses": "^1.8.0",
     "electron": "^41.0.2"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1"
   }
 }
