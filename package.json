@@ -4,6 +4,12 @@
   "productName": "Basic Tools",
   "description": "A suite of minimum computing tools",
   "main": "src/main/main.js",
+  "config":{
+    "packagerConfig": {
+      "name": "Basic Tools",
+      "executableName": "BasicTools"
+    }
+  },
   "scripts": {
     "start": "electron-forge start",
     "test": "test",
