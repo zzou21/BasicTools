@@ -3,16 +3,19 @@ name: Build and Release
 on:
   push:
     tags:
-      - 'v*'  # triggers on version tags like v1.0.0
+      - 'v*'
 
 jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [macos-latest, windows-latest, ubuntu-latest]
     
     runs-on: ${{ matrix.os }}
     
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
       
@@ -25,9 +28,8 @@ jobs:
       
       - name: Make distributables
         run: npm run make
-      
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: ${{ matrix.os }}-build
-          path: out/make/**/*
+          files: out/make/**/*
