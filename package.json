@@ -1,15 +1,16 @@
 {
-  "name": "basictools",
+  "name": "BasicTools",
   "version": "1.0.0",
-  "description": "suite of minimum computing tools",
-  "main": "main.js",
+  "productName": "Basic Tools",
+  "description": "A suite of minimum computing tools",
+  "main": "src/main/main.js",
   "scripts": {
     "start": "electron-forge start",
     "test": "test",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish"
-
+    "publish": "electron-forge publish",
+    "dist": "electron-builder"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,8 @@
     "electron": "^41.0.2"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.1"
+    "electron-squirrel-startup": "^1.0.1",
+    "sharp": "^0.34.5",
+    "update-electron-app": "^3.1.2"
   }
 }

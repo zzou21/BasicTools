@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:"
+    />
+    <title>Image Converter</title>
+    <link rel="stylesheet" href="../../assets/styles/styles.css" />
+    <link rel="stylesheet" href="imageConverter.css" />
+  </head>
+  <body>
+    <div class="container">
+
+      <header class="header">
+        <h1 class="header__title">Image Converter</h1>
+        <p class="header__desc">Convert and rename images in bulk.</p>
+      </header>
+
+      <div class="divider"></div>
+
+      <!-- Step 1: Select Files -->
+      <section class="section">
+        <p class="section__label">1. Select Images</p>
+        <div class="row">
+          <button class="action-btn" id="selectFilesBtn">Choose Files</button>
+          <button class="action-btn" id="clearFilesBtn" disabled>Clear</button>
+        </div>
+        <ul id="fileList" class="file-list"></ul>
+      </section>
+
+      <!-- Step 2: Output Format -->
+      <section class="section">
+        <p class="section__label">2. Output Format</p>
+        <div class="row">
+          <select id="formatSelect" class="select-input">
+            <option value="jpeg">JPEG</option>
+            <option value="png">PNG</option>
+            <option value="webp">WebP</option>
+            <option value="tiff">TIFF</option>
+            <option value="avif">AVIF</option>
+            <!-- TODO: add more formats here as needed -->
+          </select>
+        </div>
+      </section>
+
+      <!-- Step 3: Output Directory -->
+      <section class="section">
+        <p class="section__label">3. Output Directory</p>
+        <div class="row">
+          <span id="outputDirLabel" class="dir-label">Same as input files</span>
+          <button class="action-btn" id="selectOutputDirBtn">Choose Folder</button>
+        </div>
+      </section>
+
+      <!-- Step 4: Rename (optional) -->
+      <section class="section" id="renameSection" style="display:none">
+        <p class="section__label">4. Rename Files <span class="optional">(optional)</span></p>
+        <p class="section__description">To preview each photo, click on each photo's text box that renames the photo.</p>
+
+            <div class="preview-area" id="previewArea">
+                <div class="preview-img-wrap">
+                <img id="previewImg" class="preview-img hidden" alt="Preview" />
+                <div id="previewPlaceholder" class="preview-placeholder">No preview</div>
+                </div>
+                <p id="previewName" class="preview-name"></p>
+            </div>
+        <ul id="renameList" class="rename-list"></ul>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Progress -->
+      <section class="section" id="progressSection" style="display:none">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <p id="progressLabel" class="progress-label"></p>
+      </section>
+
+      <!-- Convert Button -->
+      <button class="action-btn action-btn--primary" id="convertBtn" disabled>
+        Convert Images
+      </button>
+
+      <!-- Results -->
+      <section class="section" id="resultsSection" style="display:none">
+        <p id="resultsLabel" class="results-label"></p>
+        <button class="action-btn" id="openOutputDirBtn">Open Output Folder</button>
+      </section>
+
+      <div class="divider"></div>
+
+      <button class="tool-btn" data-tool="home">← Back to Main Page</button>
+
+    </div>
+    <script src="imageConverter.js"></script>
+  </body>
+</html>

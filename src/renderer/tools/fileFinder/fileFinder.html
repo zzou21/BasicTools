@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:"
+  />
+    <title>File Finder</title>
+    <link rel="stylesheet" href="../../assets/styles/styles.css" />
+    <link rel="stylesheet" href="fileFinder.css" />
+  </head>
+  <body>
+    <div class="container">
+
+      <header class="header">
+        <h1 class="header__title">File Finder</h1>
+        <p class="header__desc">Search for files in a selected directory.</p>
+      </header>
+
+      <div class="divider"></div>
+
+      <!-- select folder or directoy -->
+      <div class="section">
+        <div class="dir-row">
+          <span id="selectedDir" class="dir-label">No directory selected</span>
+          <button class="action-btn" id="selectDirBtn">Choose Folder</button>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="section">
+        <div class="search-row">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Enter search term..."
+            disabled
+          />
+          <button class="action-btn" id="searchBtn" disabled>Search</button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="section" id="resultsSection" style="display:none">
+        <p id="resultsCount" class="results-count"></p>
+        <ul id="resultsList" class="results-list"></ul>
+
+        <!-- Actions -->
+        <div class="actions-row" id="actionsRow" style="display:none">
+          <button class="action-btn" id="openAllBtn">Open All</button>
+          <button class="action-btn" id="newSearchBtn">New Search</button>
+          <button class="action-btn" id="changeDirBtn">Change Folder</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- back button -->
+      <button class="tool-btn" data-tool="home">
+        ← Back to Main Page
+      </button>
+
+    </div>
+    <script src="fileFinder.js"></script>
+  </body>
+</html>

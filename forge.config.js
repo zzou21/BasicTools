@@ -8,10 +8,9 @@ module.exports = {
       config: {
         repository: {
           owner: 'zzou21',
-          name: 'BasicTools'
+          name: 'Basic Tools'
         },
-        prerelease: false,
-        draft: true
+        prerelease: false
       }
     }
   ],

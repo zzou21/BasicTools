@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Basic Tools</title>
+    <link rel="stylesheet" href="assets/styles/styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+
+      <!-- header-->
+      <header class="header">
+        <h1 class="header__title">Basic Tools</h1>
+        <p class="header__desc">
+          A minimum-computing and locally run collection of everyday digital utilities. Pick a tool below to get started.
+        </p>
+      </header>
+
+      <div class="divider"></div>
+
+      <!-- list of buttons -->
+      <!--
+        HOW TO ADD A TOOL:
+        1. Copy a <button class="tool-btn"> block below.
+        2. Fill in the icon, name, and hint.
+        3. Set onclick="openTool('yourToolName')" — the handler lives in ui.js.
+        4. Remove the  tool-btn--soon  class and  disabled  attribute when ready.
+      -->
+      <div class="tools-grid">
+
+        <!-- tool one: file finder -->
+        <button class="tool-btn" data-tool="fileFinder">
+          <span class="tool-btn__name">File Finder</span>
+          <span class="tool-btn__hint">Find the files you need in a specific folder.</span>
+        </button>
+
+        <!-- tool two: image converter -->
+        <button class="tool-btn" data-tool="imageConverter">
+          <span class="tool-btn__name">Image Converter</span>
+          <span class="tool-btn__hint">Convert and rename images in bulk.</span>
+        </button>
+
+        <!-- Tool 3 — Calculator (coming soon) -->
+        <button class="tool-btn tool-btn--soon" disabled>
+          <!-- TODO: remove tool-btn--soon + disabled when ready -->
+          <span class="tool-btn__name">PDF Merger</span>
+          <span class="tool-btn__hint">Combine multiple PDFs into one.</span>
+        </button>
+        
+        <!-- ── ADD MORE TOOLS HERE ──────────────────────────────
+             Copy any button block above and paste it here.
+             The grid is 2-column and wraps automatically.
+        ─────────────────────────────────────────────────────── -->
+
+      </div><!-- /tools-grid -->
+
+      <!-- ── Footer ──────────────────────────────────────────── -->
+      <footer class="footer">
+        <p id="info"></p><!-- populated by renderer.js (e.g. Electron / Node version) -->
+        <!-- TODO: add version number or build info here -->
+      </footer>
+
+    </div><!-- /container -->
+
+    <!--
+      Script load order:
+        1. renderer.js  — your existing Electron contextBridge / IPC setup
+        2. ui.js        — landing page interactions (openTool, etc.)
+    -->
+    <script src="renderer.js"></script>
+    <script src="ui.js"></script>
+  </body>
+</html>
