@@ -1,10 +1,8 @@
 name: Build and Release
-
 on:
   push:
     tags:
       - 'v*'
-
 jobs:
   build:
     strategy:
@@ -25,8 +23,13 @@ jobs:
       
       - name: Install dependencies
         run: npm install
-      
-      - name: Make distributables
+
+      - name: Make distributables (Mac)
+        if: matrix.os == 'macos-latest'
+        run: npm run make -- --arch=universal
+
+      - name: Make distributables (Windows and Linux)
+        if: matrix.os != 'macos-latest'
         run: npm run make
 
       - name: Upload to GitHub Release

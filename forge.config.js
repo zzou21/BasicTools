@@ -8,7 +8,7 @@ module.exports = {
       config: {
         repository: {
           owner: 'zzou21',
-          name: 'Basic Tools'
+          name: 'BasicTools'
         },
         prerelease: false
       }
@@ -16,24 +16,57 @@ module.exports = {
   ],
   packagerConfig: {
     asar: true,
+    name: 'Basic Tools',
+    executableName: 'BasicTools',
+    //  fill in when I have an Apple Developer account
+    // osxSign: {
+    //   identity: 'Developer ID Application: Your Name (XXXXXXXXXX)'
+    // },
+    // osxNotarize: {
+    //   appleId: process.env.APPLE_ID,
+    //   appleIdPassword: process.env.APPLE_PASSWORD,
+    //   teamId: process.env.APPLE_TEAM_ID
+    // }
+
   },
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
-      config: {},
+      name: '@electron-forge/maker-dmg',
+      platforms: ['darwin'],
+      config: {
+        format: 'ULFO'
+      }
     },
     {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin', 'linux', ],
+      name: '@electron-forge/maker-squirrel',
+      platforms: ['win32'],
+      config: {
+        name: 'BasicTools',
+        // TODO: add Windows code signing when ready
+        // certificateFile: './cert.pfx',
+        // certificatePassword: process.env.CERTIFICATE_PASSWORD
+      }
     },
     {
       name: '@electron-forge/maker-deb',
-      config: {},
+      platforms: ['linux'],
+      config: {
+        options: {
+          maintainer: 'Zhihui Zou',
+          homepage: 'https://github.com/zzou21/BasicTools'
+        }
+      }
     },
     {
       name: '@electron-forge/maker-rpm',
-      config: {},
+      platforms: ['linux'],
+      config: {
+        options: {
+          maintainer: 'Zhihui Zou',
+          homepage: 'https://github.com/zzou21/BasicTools'
+        }
+      }
     },
   ],
   plugins: [

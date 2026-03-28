@@ -1,9 +1,10 @@
 {
   "name": "BasicTools",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "productName": "Basic Tools",
   "description": "A suite of minimum computing tools",
   "main": "src/main/main.js",
+  "increment-version": "versiony package.json --patch && git add . && git commit -m 'new version' && git push",
   "config": {
     "packagerConfig": {
       "name": "Basic Tools",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@electron-forge/cli": "^7.11.1",
     "@electron-forge/maker-deb": "^7.11.1",
+    "@electron-forge/maker-dmg": "^7.11.1",
     "@electron-forge/maker-rpm": "^7.11.1",
     "@electron-forge/maker-squirrel": "^7.11.1",
     "@electron-forge/maker-zip": "^7.11.1",
@@ -38,10 +40,12 @@
     "@electron-forge/plugin-fuses": "^7.11.1",
     "@electron-forge/publisher-github": "^7.11.1",
     "@electron/fuses": "^1.8.0",
-    "electron": "^41.0.2"
+    "electron": "^41.0.2",
+    "versiony": "^2.0.1"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
+    "electron-updater": "^6.8.3",
     "pdf-lib": "^1.17.1",
     "sharp": "^0.34.5",
     "update-electron-app": "^3.1.2"

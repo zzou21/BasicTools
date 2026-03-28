@@ -1,6 +1,7 @@
 const { updateElectronApp } = require('update-electron-app');
 updateElectronApp(); // additional configuration options available
 
+import { autoUpdater } from 'electron-updater'
 const { app, BrowserWindow, ipcMain, shell, dialog} = require('electron/main')
 const path = require('node:path')
 const fs = require('node:fs')
@@ -32,6 +33,8 @@ const createWindow = () => {
         preload: path.join(__dirname, "../../preload/preload.js")
     }
   })
+
+  autoUpdater.checkForUpdatesAndNotify() //automatically checks for new updates
 
   win.loadFile(path.join(__dirname, '../renderer/index.html'))
 }
