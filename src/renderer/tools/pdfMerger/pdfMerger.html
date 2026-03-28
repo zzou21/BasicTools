@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'"
+    />
+    <title>PDF Merger</title>
+    <link rel="stylesheet" href="../../assets/styles/styles.css" />
+    <link rel="stylesheet" href="pdfMerger.css" />
+  </head>
+  <body>
+    <div class="container">
+
+      <header class="header">
+        <h1 class="header__title">PDF Merger</h1>
+        <p class="header__desc">Combine multiple PDFs into one. Drag to reorder.</p>
+      </header>
+
+      <div class="divider"></div>
+
+      <!-- select Files -->
+      <section class="section">
+        <p class="section__label">1. Select PDF Files</p>
+        <div class="row">
+          <button class="action-btn" id="selectFilesBtn">Choose PDFs</button>
+          <button class="action-btn" id="clearFilesBtn" disabled>Clear</button>
+        </div>
+        <ul id="fileList" class="file-list">
+          <li class="file-list__empty">No files selected yet.</li>
+        </ul>
+      </section>
+
+      <!-- select output Directory -->
+      <section class="section">
+        <p class="section__label">2. Save Location</p>
+        <div class="row">
+          <span id="outputDirLabel" class="dir-label">No folder selected</span>
+          <button class="action-btn" id="selectOutputDirBtn">Choose Folder</button>
+        </div>
+      </section>
+
+      <!-- select a name for combined pdf -->
+      <section class="section">
+        <p class="section__label">3. Output File Name</p>
+        <div class="row">
+          <input
+            type="text"
+            id="outputNameInput"
+            class="search-input"
+            placeholder="merged.pdf"
+          />
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Merge Button -->
+      <button class="action-btn action-btn--primary" id="mergeBtn" disabled>
+        Merge PDFs
+      </button>
+
+      <!-- Result -->
+      <section class="section hidden" id="resultSection">
+        <p id="resultLabel" class="results-label"></p>
+        <button class="action-btn" id="openOutputDirBtn">Open Output Folder</button>
+      </section>
+
+      <div class="divider"></div>
+
+      <button class="tool-btn" data-tool="home">Back to Main Page</button>
+
+    </div>
+    <script src="pdfMerger.js"></script>
+  </body>
+</html>

@@ -1,4 +1,6 @@
-/* ui.js — interact with buttons on landing page. load after renderer.js in index.html. */
+/* ui. Helps with file interactions on the main page. */
+
+// helpful notes (from Claude)
 
 /**
  * openTool(toolName)
@@ -27,6 +29,17 @@ window.addEventListener('DOMContentLoaded', () => {
       window.api.openTool(toolName)
     })
   })
+
+  document.querySelectorAll('.menubar__item[data-action]').forEach(item => {
+    item.addEventListener('click', () => {
+      const action = item.getAttribute('data-action')
+      if (action === 'about') {
+        window.api.openTool('about')
+      }
+      // TODO: add more actions here as you add menu items
+    })
+  })
+
 })
 
 // function openTool(toolName) {

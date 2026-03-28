@@ -1,3 +1,6 @@
+# Ignore folder containing non-code files
+NonCode
+
 # Logs
 logs
 *.log

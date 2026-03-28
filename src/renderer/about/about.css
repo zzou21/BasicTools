@@ -1,0 +1,19 @@
+.about-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.about-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.about-body {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}

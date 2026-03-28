@@ -1,0 +1,169 @@
+
+/* CSS for pdfMerger */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section__label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Action buttons */
+.action-btn {
+  padding: 9px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.action-btn:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.action-btn--primary {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Directory label */
+.dir-label {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Search input (reused for filename) */
+.search-input {
+  flex: 1;
+  padding: 9px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+}
+
+/* File list */
+.file-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.file-list__empty {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 8px 0;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 12px;
+  transition: border-color var(--transition);
+}
+
+.file-item--draggable {
+  cursor: grab;
+}
+
+.file-item--draggable:active {
+  cursor: grabbing;
+}
+
+.file-item.dragging {
+  opacity: 0.4;
+}
+
+.file-item.drag-over {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+}
+
+.file-item__handle {
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.file-item__name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-muted);
+}
+
+.file-item__remove {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.file-item__remove:hover {
+  color: var(--text);
+  background: var(--border);
+}
+
+/* Results */
+.results-label {
+  font-size: 13px;
+  color: var(--text);
+}

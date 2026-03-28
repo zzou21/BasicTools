@@ -10,6 +10,7 @@ contextBridge.exposeInMainWorld('versions', {
 
 contextBridge.exposeInMainWorld('api', {
   openTool: (toolName) => ipcRenderer.send('open-tool', toolName),
+  openExternal:  (url)      => ipcRenderer.send('open-external', url),
   
   // These are for the file finder tool:
   selectDirectory: ()         => ipcRenderer.invoke('select-directory'),
@@ -27,4 +28,12 @@ contextBridge.exposeInMainWorld('converterApi', {
   openOutputDir:  (dirPath)    => ipcRenderer.send('converter-open-output-dir', dirPath),
   onProgress:     (callback)   => ipcRenderer.on('converter-progress', (event, data) => callback(data)),
   getPreview: (filePath) => ipcRenderer.invoke('converter-get-preview', filePath),
+})
+
+// This is for the PDF merger tool:
+contextBridge.exposeInMainWorld('pdfMergerApi', {
+  selectFiles:    ()        => ipcRenderer.invoke('merger-select-files'),
+  selectOutputDir:()        => ipcRenderer.invoke('merger-select-output-dir'),
+  merge:          (options) => ipcRenderer.invoke('merger-merge', options),
+  openOutputDir:  (dirPath) => ipcRenderer.send('converter-open-output-dir', dirPath),
 })

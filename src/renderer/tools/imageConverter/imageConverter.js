@@ -1,9 +1,8 @@
-/* imageConverter.js — Image Converter renderer logic and interface. Different from the imageConverter.js in the "src/main/tools" directory
+/* renderer functions and logic for the image converter tool
  */
 
 window.addEventListener('DOMContentLoaded', () => {
 
-  // ── Element references ───────────────────────────────────
 const selectFilesBtn    = document.getElementById('selectFilesBtn')
 const clearFilesBtn     = document.getElementById('clearFilesBtn')
 const fileList          = document.getElementById('fileList')
@@ -24,12 +23,12 @@ const previewPlaceholder = document.getElementById('previewPlaceholder')
 const previewName        = document.getElementById('previewName')
 
 
-  // ── State ────────────────────────────────────────────────
+  // states
   let selectedFiles = []
   let outputDir     = null
   let lastOutputDir = null
 
-  // ── Helpers ──────────────────────────────────────────────
+  // helper functions
   function getFileName(filePath) {
     return filePath.split('/').pop()
   }
@@ -71,7 +70,7 @@ const previewName        = document.getElementById('previewName')
       renameList.appendChild(li)
     })
 
-    // Show preview when user clicks into a rename input
+    // generate preview of a photo when someone clicks on a photo's name
     renameList.querySelectorAll('.rename-input').forEach(input => {
       input.addEventListener('focus', () => {
         showPreview(input.getAttribute('data-filepath'))
@@ -84,7 +83,7 @@ const previewName        = document.getElementById('previewName')
     }
   }
 
-  // ── Render file list ─────────────────────────────────────
+  // render a list of files
   function renderFileList() {
     fileList.innerHTML = ''
     selectedFiles.forEach(filePath => {
@@ -99,8 +98,6 @@ const previewName        = document.getElementById('previewName')
     renderRenameList()
   }
 
-  // ── Render rename inputs ─────────────────────────────────
-
 // Update extension labels when format changes
   formatSelect.addEventListener('change', () => {
     renameList.querySelectorAll('.rename-item__ext').forEach(el => {
@@ -108,7 +105,7 @@ const previewName        = document.getElementById('previewName')
     })
   })
 
-  // ── Select files ─────────────────────────────────────────
+  // select files
   selectFilesBtn.addEventListener('click', async () => {
     const files = await window.converterApi.selectFiles()
     if (files.length === 0) return
@@ -117,7 +114,7 @@ const previewName        = document.getElementById('previewName')
     resultsSection.style.display = 'none'
   })
 
-  // ── Clear files ──────────────────────────────────────────
+  // clear files
   clearFilesBtn.addEventListener('click', () => {
     selectedFiles = []
     renderFileList()
@@ -125,7 +122,7 @@ const previewName        = document.getElementById('previewName')
     progressSection.style.display = 'none'
   })
 
-  // ── Select output directory ──────────────────────────────
+  // select a directory to put the outputted files
   selectOutputDirBtn.addEventListener('click', async () => {
     const dir = await window.converterApi.selectOutputDir()
     if (!dir) return
@@ -188,7 +185,7 @@ const previewName        = document.getElementById('previewName')
     convertBtn.disabled = false
   })
 
-  // ── Open output folder ───────────────────────────────────
+  // ── Open output folder 
   openOutputDirBtn.addEventListener('click', () => {
     if (lastOutputDir) {
       window.converterApi.openOutputDir(lastOutputDir)
@@ -225,7 +222,7 @@ const previewName        = document.getElementById('previewName')
     progressLabel.textContent   = `Converting ${current} of ${total}...`
   })
 
-  // ── Back button ──────────────────────────────────────────
+  // back to home page
   document.querySelectorAll('.tool-btn[data-tool]').forEach(btn => {
     btn.addEventListener('click', () => {
       window.api.openTool(btn.getAttribute('data-tool'))

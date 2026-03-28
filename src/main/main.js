@@ -1,17 +1,22 @@
 const { updateElectronApp } = require('update-electron-app');
 updateElectronApp(); // additional configuration options available
 
-const { app, BrowserWindow, ipcMain, shell, dialog } = require('electron/main')
+const { app, BrowserWindow, ipcMain, shell, dialog} = require('electron/main')
 const path = require('node:path')
 const fs = require('node:fs')
 require('./tools/imageConverter')
+require('./tools/pdfMerger')
+
 
 // listener for different tools being called by buttons and provide file paths for destinations
 ipcMain.on('open-tool', (event, toolName) => {
   const toolPaths = {
     home: path.join(__dirname, '../renderer/index.html'),
+    about: path.join(__dirname, '../renderer/about/about.html'),
     fileFinder: path.join(__dirname, '../renderer/tools/fileFinder/fileFinder.html'),
     imageConverter: path.join(__dirname, '../renderer/tools/imageConverter/imageConverter.html'),
+    pdfMerger: path.join(__dirname, '../renderer/tools/pdfMerger/pdfMerger.html',
+    )
     // add more tool links below
   }
 
@@ -44,6 +49,12 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+// This is to help the app open external links that are not linked to other pages in the app
+ipcMain.on('open-external', (event, url) => {
+  shell.openExternal(url)
+})
+
 
 // ========
 // Code below are for file finder tool

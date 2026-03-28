@@ -22,10 +22,20 @@
       <header class="header">
         <h1 class="header__title">Basic Tools</h1>
         <p class="header__desc">
-          A minimum-computing and locally run collection of everyday digital utilities. Pick a tool below to get started.
+          A minimum-computing tool suite of everyday digital and computational utilities designed to run locally on your machines.
         </p>
+
       </header>
 
+
+
+      <div class="divider"></div>
+
+      <nav class="menubar">
+        <button class="menubar__item" data-action="about">About</button>
+        <!-- TODO: add more menu items here -->
+      </nav>
+      
       <div class="divider"></div>
 
       <!-- list of buttons -->
@@ -36,6 +46,8 @@
         3. Set onclick="openTool('yourToolName')" — the handler lives in ui.js.
         4. Remove the  tool-btn--soon  class and  disabled  attribute when ready.
       -->
+      <p class="header__desc">Choose a tool to use (with more tools to be added):</p>
+
       <div class="tools-grid">
 
         <!-- tool one: file finder -->
@@ -50,33 +62,22 @@
           <span class="tool-btn__hint">Convert and rename images in bulk.</span>
         </button>
 
-        <!-- Tool 3 — Calculator (coming soon) -->
-        <button class="tool-btn tool-btn--soon" disabled>
-          <!-- TODO: remove tool-btn--soon + disabled when ready -->
+        <!-- Tool 3 — pdf combiner -->
+        <button class="tool-btn" data-tool="pdfMerger">
           <span class="tool-btn__name">PDF Merger</span>
           <span class="tool-btn__hint">Combine multiple PDFs into one.</span>
         </button>
         
-        <!-- ── ADD MORE TOOLS HERE ──────────────────────────────
-             Copy any button block above and paste it here.
-             The grid is 2-column and wraps automatically.
-        ─────────────────────────────────────────────────────── -->
+        <!-- more tools to be added -->
 
-      </div><!-- /tools-grid -->
+      </div>
 
-      <!-- ── Footer ──────────────────────────────────────────── -->
       <footer class="footer">
-        <p id="info"></p><!-- populated by renderer.js (e.g. Electron / Node version) -->
-        <!-- TODO: add version number or build info here -->
+        <p id="info"></p>
       </footer>
 
-    </div><!-- /container -->
+    </div>
 
-    <!--
-      Script load order:
-        1. renderer.js  — your existing Electron contextBridge / IPC setup
-        2. ui.js        — landing page interactions (openTool, etc.)
-    -->
     <script src="renderer.js"></script>
     <script src="ui.js"></script>
   </body>

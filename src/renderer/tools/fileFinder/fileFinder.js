@@ -1,10 +1,8 @@
-/* ============================================================
-   fileFinder.js — File Finder tool renderer logic
-============================================================ */
+/* file finder */
 
 window.addEventListener('DOMContentLoaded', () => {
 
-  // ── Element references ──────────────────────────────────
+
   const selectDirBtn   = document.getElementById('selectDirBtn')
   const selectedDir    = document.getElementById('selectedDir')
   const searchInput    = document.getElementById('searchInput')
@@ -25,7 +23,6 @@ window.addEventListener('DOMContentLoaded', () => {
     return filePath.split("/").pop()
   }
 
-  // ── Select directory ────────────────────────────────────
   async function selectDirectory() {
     const dirPath = await window.api.selectDirectory()
     if (!dirPath) return
@@ -35,11 +32,9 @@ window.addEventListener('DOMContentLoaded', () => {
     searchBtn.disabled = false
     searchInput.focus()
 
-    // clear previous results
     resetResults()
   }
 
-  // ── Perform search ──────────────────────────────────────
   async function performSearch() {
     const term = searchInput.value.trim()
     if (!term) return
@@ -81,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
     actionsRow.style.display = 'flex'
   }
 
-  // ── Reset results UI ────────────────────────────────────
+  // reset results
   function resetResults() {
     currentResults = []
     resultsList.innerHTML = ''
@@ -91,7 +86,7 @@ window.addEventListener('DOMContentLoaded', () => {
     searchInput.value = ''
   }
 
-  // ── Button listeners ────────────────────────────────────
+  // listeners
   selectDirBtn.addEventListener('click', selectDirectory)
   changeDirBtn.addEventListener('click', selectDirectory)
   newSearchBtn.addEventListener('click', () => {
@@ -106,7 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Enter') performSearch()
   })
 
-  // ── Back button ─────────────────────────────────────────
+  //back button to go back to home page
   document.querySelectorAll('.tool-btn[data-tool]').forEach(button => {
     button.addEventListener('click', () => {
       window.api.openTool(button.getAttribute('data-tool'))
