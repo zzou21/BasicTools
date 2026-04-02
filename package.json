@@ -1,6 +1,6 @@
 {
   "name": "BasicTools",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "productName": "Basic Tools",
   "description": "A suite of minimum computing tools",
   "main": "src/main/main.js",
@@ -41,6 +41,7 @@
     "@electron-forge/publisher-github": "^7.11.1",
     "@electron/fuses": "^1.8.0",
     "electron": "^41.0.2",
+    "electron-notarize": "^1.2.2",
     "versiony": "^2.0.1"
   },
   "dependencies": {
@@ -49,5 +50,25 @@
     "pdf-lib": "^1.17.1",
     "sharp": "^0.34.5",
     "update-electron-app": "^3.1.2"
+  },
+  "build": {
+    "appId": "com.yourname.yourapp",
+    "productName": "YourApp",
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "identity": "Developer ID Application: Zhihui Zou (AQ22UGTB48)",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "your-github-username",
+      "repo": "your-repo-name"
+    }
   }
 }

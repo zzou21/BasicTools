@@ -18,16 +18,18 @@ module.exports = {
     asar: true,
     name: 'Basic Tools',
     executableName: 'BasicTools',
-    //  fill in when I have an Apple Developer account
-    // osxSign: {
-    //   identity: 'Developer ID Application: Your Name (XXXXXXXXXX)'
-    // },
-    // osxNotarize: {
-    //   appleId: process.env.APPLE_ID,
-    //   appleIdPassword: process.env.APPLE_PASSWORD,
-    //   teamId: process.env.APPLE_TEAM_ID
-    // }
-
+    osxSign: {
+      identity: 'Developer ID Application: Zhihui Zou (AQ22UGTB48)',
+      hardenedRuntime: true,
+      entitlements: 'entitlements.mac.plist',
+      'entitlements-inherit': 'entitlements.mac.plist',
+      'signature-flags': 'library',
+    },
+    osxNotarize: {
+      appleId: process.env.APPLE_ID,
+      appleIdPassword: process.env.APPLE_PASSWORD,
+      teamId: process.env.APPLE_TEAM_ID
+    }
   },
   rebuildConfig: {},
   makers: [
