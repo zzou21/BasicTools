@@ -24,18 +24,18 @@ module.exports = {
       entitlements: 'entitlements.mac.plist',
       'entitlements-inherit': 'entitlements.mac.plist',
       'signature-flags': 'library',
-      optionsForFile: (filePath) => {
-        if (filePath.includes('sharp') || filePath.includes('@img')) {
-          return {
-            hardenedRuntime: true,
-            entitlements: 'entitlements.mac.plist',
-          };
-        }
-        return {
-          hardenedRuntime: true,
-          entitlements: 'entitlements.mac.plist',
-        };
-      }
+      // optionsForFile: (filePath) => {
+      //   if (filePath.includes('sharp') || filePath.includes('@img')) {
+      //     return {
+      //       hardenedRuntime: true,
+      //       entitlements: 'entitlements.mac.plist',
+      //     };
+      //   }
+      //   return {
+      //     hardenedRuntime: true,
+      //     entitlements: 'entitlements.mac.plist',
+      //   };
+      // }
       // ignore the "sharp" library (for image processing) from the code signing process, since it takes sooo long
 
     },

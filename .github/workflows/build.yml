@@ -45,7 +45,17 @@ jobs:
 
           echo "App bundles found:"
           find . -name "*.app"
-
+      - name: Sign sharp binaries
+        if: matrix.os == 'macos-latest'
+        run: |
+          find node_modules/@img -name "*.node" -o -name "*.dylib" | while read binary; do
+            codesign --sign "Developer ID Application: Zhihui Zou (AQ22UGTB48)" \
+                    --force \
+                    --timestamp \
+                    --options runtime \
+                    --entitlements entitlements.mac.plist \
+                    "$binary"
+          done
       - name: Make distributables (Mac arm64)
         if: matrix.os == 'macos-latest'
         env:
