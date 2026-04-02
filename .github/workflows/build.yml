@@ -25,9 +25,18 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+            
+      - name: debug signing setup
+        run: |
+          echo "looking for app bundles:"
+          find . -name "*.app"
 
-      - name: Build app
-        run: npm run build
+          echo "Certificate Length:"
+          echo "${{ secrets.APPLE_ID }}" | wc -c
+          echo "${{ secrets.APPLE_ID_PASSWORD }}" | wc -c
+          echo "${{ secrets.CSC_CONTENT }}" | wc -c
+          echo "${{ secrets.CSC_KEY_PASSWORD }}" | wc -c
+
 
       - name: Make distributables (Mac arm64)
         if: matrix.os == 'macos-latest'
