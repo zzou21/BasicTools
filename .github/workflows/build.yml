@@ -10,28 +10,24 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-    
+
     runs-on: ${{ matrix.os }}
-    
+
     permissions:
       contents: write
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      
-      - name: Build app
-        run:
-          npm run build
-      
-      - name: Verify app exists
-        run:
-          test -d build/BasicTools.app
+
       - name: Install dependencies
         run: npm install
+
+      - name: Build app
+        run: npm run build
 
       - name: Make distributables (Mac arm64)
         if: matrix.os == 'macos-latest'
@@ -39,7 +35,7 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          CSC_LINK: ${{  secrets.CSC_CONTENT }}
+          CSC_LINK: ${{ secrets.CSC_CONTENT }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         run: npm run make -- --arch=arm64
 
@@ -49,14 +45,16 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          CSC_LINK: ${{  secrets.CSC_CONTENT }}
+          CSC_LINK: ${{ secrets.CSC_CONTENT }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         run: npm run make -- --arch=x64
 
       - name: Make distributables (Windows and Linux)
         if: matrix.os != 'macos-latest'
         run: npm run make
+
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: out/make/**/*
