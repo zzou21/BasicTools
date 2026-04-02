@@ -30,6 +30,8 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          CSC_CONTENT: ${{  secrets.CSC_CONTENT }}
+          CSC_CONTENT_PASSWORD: ${{ CSC_KEY_PASSWORD  }}
         run: npm run make -- --arch=arm64
 
       - name: Make distributables (Mac x64)
@@ -43,7 +45,6 @@ jobs:
       - name: Make distributables (Windows and Linux)
         if: matrix.os != 'macos-latest'
         run: npm run make
-
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
