@@ -23,6 +23,13 @@ jobs:
         with:
           node-version: 24
       
+      - name: Build app
+        run:
+          npm run build
+      
+      - name: Verify app exists
+        run:
+          test -d build/BasicTools.app
       - name: Install dependencies
         run: npm install
 
