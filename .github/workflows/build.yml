@@ -26,17 +26,25 @@ jobs:
       - name: Install dependencies
         run: npm install
             
-      - name: debug signing setup
+      - name: Import signing certificate
+        if: matrix.os == 'macos-latest'
+        env:
+          CSC_LINK: ${{ secrets.CSC_CONTENT }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         run: |
-          echo "looking for app bundles:"
+          # echo "$CSC_LINK" | base64 --decode > certificate.p12
+          security create-keychain -p "" build.keychain
+          security import certificate.p12 -k build.keychain -P "$CSC_KEY_PASSWORD" -T /usr/bin/codesign
+          security list-keychains -s build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
+          
+          echo "Signing identities found:"
+          security find-identity -v -p codesigning build.keychain
+
+          echo "App bundles found:"
           find . -name "*.app"
-
-          echo "Certificate Length:"
-          echo "${{ secrets.APPLE_ID }}" | wc -c
-          echo "${{ secrets.APPLE_ID_PASSWORD }}" | wc -c
-          echo "${{ secrets.CSC_CONTENT }}" | wc -c
-          echo "${{ secrets.CSC_KEY_PASSWORD }}" | wc -c
-
 
       - name: Make distributables (Mac arm64)
         if: matrix.os == 'macos-latest'
