@@ -36,9 +36,7 @@ module.exports = {
           entitlements: 'entitlements.mac.plist',
         };
       }
-      
       // ignore the "sharp" library (for image processing) from the code signing process, since it takes sooo long
-  }
 
     },
     osxNotarize: {
