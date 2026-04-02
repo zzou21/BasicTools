@@ -23,7 +23,11 @@ module.exports = {
       hardenedRuntime: true,
       entitlements: 'entitlements.mac.plist',
       'entitlements-inherit': 'entitlements.mac.plist',
-      'signature-flags': 'library'
+      'signature-flags': 'library',
+      ignore: (filePath) => {
+      return filePath.includes('sharp') || filePath.includes('.vips') || filePath.includes('libvips') // ignore the "sharp" library (for image processing) from the code signing process, since it takes sooo long
+  }
+
     },
     osxNotarize: {
       appleId: process.env.APPLE_ID,
