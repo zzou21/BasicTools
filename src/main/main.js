@@ -1,7 +1,6 @@
-const { updateElectronApp } = require('update-electron-app');
-updateElectronApp(); // additional configuration options available
+const { updateElectronApp } = require('update-electron-app')
+updateElectronApp()
 
-import { autoUpdater } from 'electron-updater'
 const { app, BrowserWindow, ipcMain, shell, dialog} = require('electron/main')
 const path = require('node:path')
 const fs = require('node:fs')
@@ -16,8 +15,7 @@ ipcMain.on('open-tool', (event, toolName) => {
     about: path.join(__dirname, '../renderer/about/about.html'),
     fileFinder: path.join(__dirname, '../renderer/tools/fileFinder/fileFinder.html'),
     imageConverter: path.join(__dirname, '../renderer/tools/imageConverter/imageConverter.html'),
-    pdfMerger: path.join(__dirname, '../renderer/tools/pdfMerger/pdfMerger.html',
-    )
+    pdfMerger: path.join(__dirname, '../renderer/tools/pdfMerger/pdfMerger.html'),
     // add more tool links below
   }
 
@@ -30,11 +28,11 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-        preload: path.join(__dirname, "../../preload/preload.js")
+        preload: path.join(__dirname, "../preload/preload.js")
     }
   })
 
-  autoUpdater.checkForUpdatesAndNotify() //automatically checks for new updates
+  // autoUpdater.checkForUpdatesAndNotify() //automatically checks for new updates
 
   win.loadFile(path.join(__dirname, '../renderer/index.html'))
 }

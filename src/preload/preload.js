@@ -15,7 +15,7 @@ contextBridge.exposeInMainWorld('api', {
   // These are for the file finder tool:
   selectDirectory: ()         => ipcRenderer.invoke('select-directory'),
   searchFiles:     (dir, term)=> ipcRenderer.invoke('search-files', dir, term),
-  openFile:        (filePath) => ipcRenderer.send('open-file', filePath)
+  openFile:        (filePath) => ipcRenderer.send('open-file', filePath),
 
   // I will add more tool functions below this.
 })

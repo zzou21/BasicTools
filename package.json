@@ -6,9 +6,24 @@
   "main": "src/main/main.js",
   "increment-version": "versiony package.json --patch && git add . && git commit -m 'new version' && git push",
   "config": {
+    "forge": {
     "packagerConfig": {
       "name": "Basic Tools",
       "executableName": "BasicTools"
+      },
+      "publishers": [
+      {
+        "name": "@electron-forge/publisher-github",
+        "config": {
+          "repository": {
+            "owner": "zzou21",
+            "repo": "BasicTools"
+          },
+          "prerelease": false
+        }
+      }
+    ]
+
     }
   },
   "scripts": {

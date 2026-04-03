@@ -5,21 +5,20 @@ const path = require('node:path')
 const fs = require('node:fs')
 const sharp = require('sharp')
 
-// Format map 
-// Maps display name → sharp-compatible format string
+// Maps display name to sharp-compatible format string
 const FORMAT_MAP = {
   jpeg: 'jpeg',
   png:  'png',
   webp: 'webp',
   tiff: 'tiff',
   avif: 'avif',
-  // TODO: add more formats as sharp supports them
+  // add more formats that's supported by sharp 
 }
 
 // Supported input extensions
 const SUPPORTED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.tiff', '.heic', '.heif', '.avif']
 
-// ── Select image files ───────────────────────────────────────
+// select image files
 ipcMain.handle('converter-select-files', async () => {
   const result = await dialog.showOpenDialog({
     title: 'Select Images to Convert',
@@ -29,7 +28,7 @@ ipcMain.handle('converter-select-files', async () => {
   return result.canceled ? [] : result.filePaths
 })
 
-// ── Select output directory ──────────────────────────────────
+// pick output directory
 ipcMain.handle('converter-select-output-dir', async () => {
   const result = await dialog.showOpenDialog({
     title: 'Select Output Directory',

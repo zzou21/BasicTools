@@ -3,8 +3,6 @@ on:
   push:
     tags:
       - 'v*'
-    branches:
-      - main
 jobs:
   build:
     strategy:
@@ -47,15 +45,21 @@ jobs:
           find . -name "*.app"
       - name: Sign sharp binaries
         if: matrix.os == 'macos-latest'
+        timeout-minutes: 5
         run: |
-          find node_modules/@img -name "*.node" -o -name "*.dylib" | while read binary; do
+          for binary in \
+            "node_modules/@img/sharp-darwin-arm64/lib/sharp-darwin-arm64.node" \
+            "node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib"; do
+            echo "Signing: $binary"
             codesign --sign "Developer ID Application: Zhihui Zou (AQ22UGTB48)" \
                     --force \
                     --timestamp \
                     --options runtime \
                     --entitlements entitlements.mac.plist \
                     "$binary"
+            echo "Done: $binary"
           done
+      
       - name: Make distributables (Mac arm64)
         if: matrix.os == 'macos-latest'
         env:

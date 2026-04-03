@@ -8,7 +8,7 @@ module.exports = {
       config: {
         repository: {
           owner: 'zzou21',
-          name: 'BasicTools'
+          repo: 'BasicTools'
         },
         prerelease: false
       }
@@ -24,6 +24,11 @@ module.exports = {
       entitlements: 'entitlements.mac.plist',
       'entitlements-inherit': 'entitlements.mac.plist',
       'signature-flags': 'library',
+      ignore: (filePath) => {
+        return filePath.includes('@img/sharp') ||
+              filePath.includes('@img/sharp-libvips') ||
+              filePath.includes('sharp-darwin-arm64.node')
+      },
       // optionsForFile: (filePath) => {
       //   if (filePath.includes('sharp') || filePath.includes('@img')) {
       //     return {
@@ -83,6 +88,10 @@ module.exports = {
           homepage: 'https://github.com/zzou21/BasicTools'
         }
       }
+    },
+    {
+      name: '@electron-forge/maker-zip',
+      platforms: ['darwin']
     },
   ],
   plugins: [
