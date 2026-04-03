@@ -41,7 +41,8 @@ module.exports = {
         teamId: process.env.APPLE_TEAM_ID
       }
     })
-  },      // optionsForFile: (filePath) => {
+  }, 
+   // optionsForFile: (filePath) => {
       //   if (filePath.includes('sharp') || filePath.includes('@img')) {
       //     return {
       //       hardenedRuntime: true,
