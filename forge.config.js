@@ -16,20 +16,32 @@ module.exports = {
   ],
   packagerConfig: {
     asar: true,
+    asarUnpack: [
+      "node_modules/sharp/**",
+      "node_modules/@img/**"
+    ],
     name: 'Basic Tools',
     executableName: 'BasicTools',
-    osxSign: {
-      identity: 'Developer ID Application: Zhihui Zou (AQ22UGTB48)',
-      hardenedRuntime: true,
-      entitlements: 'entitlements.mac.plist',
-      'entitlements-inherit': 'entitlements.mac.plist',
-      'signature-flags': 'library',
-      ignore: (filePath) => {
-        return filePath.includes('@img/sharp') ||
-              filePath.includes('@img/sharp-libvips') ||
-              filePath.includes('sharp-darwin-arm64.node')
+    ...(process.platform === 'darwin' && {
+      osxSign: {
+        identity: 'Developer ID Application: Zhihui Zou (AQ22UGTB48)',
+        hardenedRuntime: true,
+        entitlements: 'entitlements.mac.plist',
+        'entitlements-inherit': 'entitlements.mac.plist',
+        'signature-flags': 'library',
+        ignore: (filePath) => {
+          return filePath.includes('@img/sharp') ||
+                filePath.includes('@img/sharp-libvips') ||
+                filePath.includes('sharp-darwin-arm64.node')
+        },
       },
-      // optionsForFile: (filePath) => {
+      osxNotarize: {
+        appleId: process.env.APPLE_ID,
+        appleIdPassword: process.env.APPLE_APP_SPECIFIC_PASSWORD,
+        teamId: process.env.APPLE_TEAM_ID
+      }
+    })
+  },      // optionsForFile: (filePath) => {
       //   if (filePath.includes('sharp') || filePath.includes('@img')) {
       //     return {
       //       hardenedRuntime: true,
@@ -43,13 +55,6 @@ module.exports = {
       // }
       // ignore the "sharp" library (for image processing) from the code signing process, since it takes sooo long
 
-    },
-    osxNotarize: {
-      appleId: process.env.APPLE_ID,
-      appleIdPassword: process.env.APPLE_APP_SPECIFIC_PASSWORD,
-      teamId: process.env.APPLE_TEAM_ID
-    }
-  },
   rebuildConfig: {},
   makers: [
     {
