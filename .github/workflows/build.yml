@@ -23,6 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+      
+      - name: Debug forge config
+        run: cat forge.config.js
+
             
       - name: Import signing certificate
         if: matrix.os == 'macos-latest'
@@ -82,7 +86,7 @@ jobs:
 
       - name: Make distributables (Windows and Linux)
         if: matrix.os != 'macos-latest'
-        run: npm run make
+        run: npm run make -- --verbose
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
