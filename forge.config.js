@@ -22,6 +22,7 @@ module.exports = {
       // "node_modules/sharp/**",
       // "node_modules/@img/**"
     ],
+    prune: false,
     name: 'Basic Tools',
     executableName: 'BasicTools',
     ...(process.platform === 'darwin' && {
