@@ -17,8 +17,9 @@ module.exports = {
   packagerConfig: {
     asar: true,
     asarUnpack: [
-      "node_modules/sharp/**",
-      "node_modules/@img/**"
+      "**/*.node"
+      // "node_modules/sharp/**",
+      // "node_modules/@img/**"
     ],
     name: 'Basic Tools',
     executableName: 'BasicTools',
@@ -29,11 +30,11 @@ module.exports = {
         entitlements: 'entitlements.mac.plist',
         'entitlements-inherit': 'entitlements.mac.plist',
         'signature-flags': 'library',
-        ignore: (filePath) => {
-          return filePath.includes('@img/sharp') ||
-                filePath.includes('@img/sharp-libvips') ||
-                filePath.includes('sharp-darwin-arm64.node')
-        },
+        // ignore: (filePath) => {
+        //   return filePath.includes('@img/sharp') ||
+        //         filePath.includes('@img/sharp-libvips') ||
+        //         filePath.includes('sharp-darwin-arm64.node')
+        // },
       },
       osxNotarize: {
         appleId: process.env.APPLE_ID,

@@ -6,8 +6,16 @@ on:
 jobs:
   build:
     strategy:
+      # matrix:
+      #   os: [macos-latest, windows-latest, ubuntu-latest]
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        include:
+          - os: macos-latest
+            arch: arm64
+          - os: macos-latest
+            arch: x64
+          - os: windows-latest
+          - os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 
@@ -21,12 +29,9 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Rebuild native modules for Electron
-        if: matrix.os == 'macos-latest'
-        run: npx @electron/rebuild -f -w sharp
+      # - name: Rebuild native modules for Electron
+      #   if: matrix.os == 'macos-latest'
+      #   run: npx @electron/rebuild -f -w sharp
 
       - name: Debug sharp binaries
         if: matrix.os == 'macos-latest'
@@ -57,7 +62,7 @@ jobs:
           echo "App bundles found:"
           find . -name "*.app"
       
-      - name: Make distributables (Mac arm64)
+      - name: Build macOS
         if: matrix.os == 'macos-latest'
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -65,12 +70,19 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           CSC_LINK: ${{ secrets.CSC_CONTENT }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-        run: npm run make -- --arch=arm64
-      - name: Install x64 sharp binaries
-        if: matrix.os == 'macos-latest'
         run: |
-          npm install --cpu=x64 --os=darwin @img/sharp-darwin-x64
-          npm install --cpu=x64 --os=darwin @img/sharp-libvips-darwin-x64
+          rm -rf node_modules package-lock.json
+          npm install
+          npx @electron/rebuild -f -w sharp
+          npm run make -- --arch=${{ matrix.arch }}
+
+
+
+      # - name: Install x64 sharp binaries
+      #   if: matrix.os == 'macos-latest'
+      #   run: |
+      #     npm install --cpu=x64 --os=darwin @img/sharp-darwin-x64
+      #     npm install --cpu=x64 --os=darwin @img/sharp-libvips-darwin-x64
 
       - name: Debug x64 sharp binaries
         if: matrix.os == 'macos-latest'
@@ -80,16 +92,28 @@ jobs:
           echo "=== x64 libvips files ==="
           ls node_modules/@img/sharp-libvips-darwin-x64/lib/ || echo "NOT FOUND"
 
-      - name: Make distributables (Mac x64)
-        if: matrix.os == 'macos-latest'
-        env:
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          CSC_LINK: ${{ secrets.CSC_CONTENT }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-        run: npm run make -- --arch=x64
+      # - name: Build macOS (x64)
+      #   if: matrix.os == 'macos-latest'
+      #   env:
+      #     APPLE_ID: ${{ secrets.APPLE_ID }}
+      #     APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+      #     APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      #     CSC_LINK: ${{ secrets.CSC_CONTENT }}
+      #     CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      #   run: |
+      #     # Clean install AGAIN (critical!)
+      #     rm -rf node_modules package-lock.json
+      #     npm install
 
+      #     # Rebuild native modules for Electron
+      #     npx @electron/rebuild -f -w sharp
+
+      #     # Build x64
+      #     npm run make -- --arch=${{ matrix.arch }}
+
+      - name: Install dependencies
+        if: matrix.os != 'macos-latest'
+        run: npm install
       - name: Make distributables (Windows and Linux)
         if: matrix.os != 'macos-latest'
         run: npm run make -- --verbose
