@@ -17,7 +17,8 @@ module.exports = {
   packagerConfig: {
     asar: true,
     asarUnpack: [
-      "**/*.node"
+      "**/*.node",
+      "**/*.dylib"
       // "node_modules/sharp/**",
       // "node_modules/@img/**"
     ],
