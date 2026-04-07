@@ -73,6 +73,7 @@ jobs:
         run: |
           rm -rf node_modules package-lock.json
           npm install
+          npm install --os=darwin --cpu=${{ matrix.arch }} sharp
           npx @electron/rebuild -f -w sharp
           npm run make -- --arch=${{ matrix.arch }}
 
