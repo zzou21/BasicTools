@@ -28,10 +28,15 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: npx @electron/rebuild -f -w sharp
 
-      - name: Debug forge config
-        run: cat forge.config.js
+      - name: Debug sharp binaries
+        if: matrix.os == 'macos-latest'
+        run: |
+          echo "=== arm64 sharp files ==="
+          ls node_modules/@img/sharp-darwin-arm64/lib/ || echo "NOT FOUND"
+          echo "=== arm64 libvips files ==="
+          ls node_modules/@img/sharp-libvips-darwin-arm64/lib/ || echo "NOT FOUND"
 
-            
+
       - name: Import signing certificate
         if: matrix.os == 'macos-latest'
         env:
@@ -51,22 +56,6 @@ jobs:
 
           echo "App bundles found:"
           find . -name "*.app"
-      - name: Sign sharp binaries
-        if: matrix.os == 'macos-latest'
-        timeout-minutes: 5
-        run: |
-          for binary in \
-            "node_modules/@img/sharp-darwin-arm64/lib/sharp-darwin-arm64.node" \
-            "node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib"; do
-            echo "Signing: $binary"
-            codesign --sign "Developer ID Application: Zhihui Zou (AQ22UGTB48)" \
-                    --force \
-                    --timestamp \
-                    --options runtime \
-                    --entitlements entitlements.mac.plist \
-                    "$binary"
-            echo "Done: $binary"
-          done
       
       - name: Make distributables (Mac arm64)
         if: matrix.os == 'macos-latest'
@@ -77,6 +66,19 @@ jobs:
           CSC_LINK: ${{ secrets.CSC_CONTENT }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         run: npm run make -- --arch=arm64
+      - name: Install x64 sharp binaries
+        if: matrix.os == 'macos-latest'
+        run: |
+          npm install --cpu=x64 --os=darwin @img/sharp-darwin-x64
+          npm install --cpu=x64 --os=darwin @img/sharp-libvips-darwin-x64
+
+      - name: Debug x64 sharp binaries
+        if: matrix.os == 'macos-latest'
+        run: |
+          echo "=== x64 sharp files ==="
+          ls node_modules/@img/sharp-darwin-x64/lib/ || echo "NOT FOUND"
+          echo "=== x64 libvips files ==="
+          ls node_modules/@img/sharp-libvips-darwin-x64/lib/ || echo "NOT FOUND"
 
       - name: Make distributables (Mac x64)
         if: matrix.os == 'macos-latest'
