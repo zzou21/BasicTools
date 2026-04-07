@@ -1,6 +1,6 @@
 {
   "name": "BasicTools",
-  "version": "1.0.27",
+  "version": "1.0.33",
   "productName": "Basic Tools",
   "description": "A suite of minimum computing tools",
   "main": "src/main/main.js",

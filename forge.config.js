@@ -18,6 +18,7 @@ module.exports = {
     asar: true,
     asarUnpack: [],
     prune: true,
+    icon: './assets/icon',
     name: 'Basic Tools',
     executableName: 'BasicTools',
     ...(process.platform === 'darwin' && {
