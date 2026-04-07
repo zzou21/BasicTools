@@ -64,7 +64,11 @@ jobs:
         run: |
           rm -rf node_modules package-lock.json
           npm install --include=optional
+          npm install --cpu=${{ matrix.arch }} --os=darwin @img/sharp-darwin-${{ matrix.arch }}
+          npm install --cpu=${{ matrix.arch }} --os=darwin @img/sharp-libvips-darwin-${{ matrix.arch }}
+
           find node_modules -name "libvips-cpp*.dylib" || echo "NOT FOUND"
+
 
           npx @electron/rebuild -f -w sharp
           npm run make -- --arch=${{ matrix.arch }}

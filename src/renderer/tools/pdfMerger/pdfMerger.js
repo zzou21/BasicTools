@@ -13,8 +13,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const resultLabel      = document.getElementById('resultLabel')
   const openOutputDirBtn = document.getElementById('openOutputDirBtn')
 
-// State
-let selectedFiles = []
+  // State
+  let selectedFiles = []
   let outputDir     = null
   let lastOutputPath = null
 
@@ -27,7 +27,23 @@ let selectedFiles = []
     mergeBtn.disabled = selectedFiles.length < 2 || !outputDir
   }
 
-  //render the files the 
+  //determine where dragged item should go
+  function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.file-item--draggable:not(.dragging)')]
+
+    return draggableElements.reduce((closest, child) => {
+      const box = child.getBoundingClientRect()
+      const offset = y - box.top - box.height / 2
+
+      if (offset < 0 && offset > closest.offset) {
+        return { offset, element: child }
+      } else {
+        return closest
+      }
+    }, { offset: Number.NEGATIVE_INFINITY }).element
+  }
+
+  // render the files
   function renderFileList() {
     fileList.innerHTML = ''
 
@@ -56,7 +72,7 @@ let selectedFiles = []
       fileList.appendChild(li)
     })
 
-    // Wire up remove buttons
+    // remove buttons
     fileList.querySelectorAll('.file-item__remove').forEach(btn => {
       btn.addEventListener('click', () => {
         const index = parseInt(btn.getAttribute('data-index'))
@@ -66,62 +82,63 @@ let selectedFiles = []
       })
     })
 
-    // drag and reorder
-    let draggedIndex = null
+    // drag elements around to reorder pdf
+    let draggedElement = null
 
     fileList.querySelectorAll('.file-item--draggable').forEach(item => {
       item.addEventListener('dragstart', () => {
-        draggedIndex = parseInt(item.dataset.index)
+        draggedElement = item
         item.classList.add('dragging')
       })
 
       item.addEventListener('dragend', () => {
         item.classList.remove('dragging')
-        draggedIndex = null
-        fileList.querySelectorAll('.file-item--draggable')
-          .forEach(i => i.classList.remove('drag-over'))
-      })
+        draggedElement = null
 
-      item.addEventListener('dragover', (e) => {
-        e.preventDefault()
-        fileList.querySelectorAll('.file-item--draggable')
-          .forEach(i => i.classList.remove('drag-over'))
-        item.classList.add('drag-over')
-      })
+        // rebuild selectedFiles based on DOM order
+        const newOrder = [...fileList.querySelectorAll('.file-item--draggable')]
+          .map(el => selectedFiles[parseInt(el.dataset.index)])
 
-      item.addEventListener('drop', (e) => {
-        e.preventDefault()
-        const targetIndex = parseInt(item.dataset.index)
-        if (draggedIndex === null || draggedIndex === targetIndex) return
-
-        // Reorder the array
-        const moved = selectedFiles.splice(draggedIndex, 1)[0]
-        selectedFiles.splice(targetIndex, 0, moved)
+        selectedFiles = newOrder
         renderFileList()
       })
+    })
+
+    // Container-level drag handling
+    fileList.addEventListener('dragover', (e) => {
+      e.preventDefault()
+
+      const afterElement = getDragAfterElement(fileList, e.clientY)
+
+      if (!draggedElement) return
+
+      if (afterElement == null) {
+        fileList.appendChild(draggedElement)
+      } else {
+        fileList.insertBefore(draggedElement, afterElement)
+      }
     })
 
     updateMergeBtn()
   }
 
-  // pick a file
+  // pick files
   selectFilesBtn.addEventListener('click', async () => {
     const files = await window.pdfMergerApi.selectFiles()
     if (files.length === 0) return
-    // Append to existing selection rather than replacing
     selectedFiles = [...selectedFiles, ...files]
     renderFileList()
     resultSection.classList.add('hidden')
   })
 
-  // 
+  // clear
   clearFilesBtn.addEventListener('click', () => {
     selectedFiles = []
     renderFileList()
     resultSection.classList.add('hidden')
   })
 
-  //
+  // select output dir
   selectOutputDirBtn.addEventListener('click', async () => {
     const dir = await window.pdfMergerApi.selectOutputDir()
     if (!dir) return
@@ -130,7 +147,7 @@ let selectedFiles = []
     updateMergeBtn()
   })
 
-  //merge files
+  // merge
   mergeBtn.addEventListener('click', async () => {
     if (selectedFiles.length < 2 || !outputDir) return
 
@@ -157,7 +174,6 @@ let selectedFiles = []
 
     resultSection.classList.remove('hidden')
   })
-
 
   openOutputDirBtn.addEventListener('click', () => {
     if (outputDir) window.pdfMergerApi.openOutputDir(outputDir)

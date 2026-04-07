@@ -167,3 +167,8 @@
   font-size: 13px;
   color: var(--text);
 }
+
+
+.file-item {
+  transition: transform 0.15s ease;
+}

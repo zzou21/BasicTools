@@ -18,9 +18,9 @@ module.exports = {
     asar: true,
     asarUnpack: [
       "**/*.node",
-      "**/*.dylib"
-      // "node_modules/sharp/**",
-      // "node_modules/@img/**"
+      "**/*.dylib",
+      "node_modules/sharp/**",
+      "node_modules/@img/**",
     ],
     prune: false,
     name: 'Basic Tools',
