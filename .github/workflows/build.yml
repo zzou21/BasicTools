@@ -29,10 +29,6 @@ jobs:
         with:
           node-version: 24
 
-      # - name: Rebuild native modules for Electron
-      #   if: matrix.os == 'macos-latest'
-      #   run: npx @electron/rebuild -f -w sharp
-
       - name: Import signing certificate
         if: matrix.os == 'macos-latest'
         env:
@@ -62,44 +58,9 @@ jobs:
           CSC_LINK: ${{ secrets.CSC_CONTENT }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         run: |
-          rm -rf node_modules package-lock.json
-          npm install --include=optional
-
-          # Force install only the target arch sharp packages, ignoring platform mismatch
-          npm install --force --cpu=${{ matrix.arch }} --os=darwin @img/sharp-darwin-${{ matrix.arch }}
-          npm install --force --cpu=${{ matrix.arch }} --os=darwin @img/sharp-libvips-darwin-${{ matrix.arch }}
-
-          # Remove the other arch to keep bundle size down
-          rm -rf node_modules/@img/sharp-darwin-$([ "${{ matrix.arch }}" = "arm64" ] && echo "x64" || echo "arm64")
-          rm -rf node_modules/@img/sharp-libvips-darwin-$([ "${{ matrix.arch }}" = "arm64" ] && echo "x64" || echo "arm64")
-
-          npx @electron/rebuild -f -w sharp
+          npm install
           npm run make -- --arch=${{ matrix.arch }}
 
-      # - name: Install x64 sharp binaries
-      #   if: matrix.os == 'macos-latest'
-      #   run: |
-      #     npm install --cpu=x64 --os=darwin @img/sharp-darwin-x64
-      #     npm install --cpu=x64 --os=darwin @img/sharp-libvips-darwin-x64
-
-      # - name: Build macOS (x64)
-      #   if: matrix.os == 'macos-latest'
-      #   env:
-      #     APPLE_ID: ${{ secrets.APPLE_ID }}
-      #     APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-      #     APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      #     CSC_LINK: ${{ secrets.CSC_CONTENT }}
-      #     CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-      #   run: |
-      #     # Clean install AGAIN (critical!)
-      #     rm -rf node_modules package-lock.json
-      #     npm install
-
-      #     # Rebuild native modules for Electron
-      #     npx @electron/rebuild -f -w sharp
-
-      #     # Build x64
-      #     npm run make -- --arch=${{ matrix.arch }}
 
       - name: Install dependencies
         if: matrix.os != 'macos-latest'

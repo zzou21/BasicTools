@@ -34,7 +34,6 @@
     "@electron-forge/plugin-fuses": "^7.11.1",
     "@electron-forge/publisher-github": "^7.11.1",
     "@electron/fuses": "^1.8.0",
-    "@electron/rebuild": "^4.0.3",
     "electron": "^41.0.2",
     "electron-notarize": "^1.2.2",
     "versiony": "^2.0.1"
@@ -42,7 +41,6 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
     "pdf-lib": "^1.17.1",
-    "sharp": "^0.34.5",
     "update-electron-app": "^3.1.2"
   },
   "build": {

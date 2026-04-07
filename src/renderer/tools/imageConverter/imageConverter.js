@@ -23,6 +23,16 @@ const previewPlaceholder = document.getElementById('previewPlaceholder')
 const previewName        = document.getElementById('previewName')
 
 
+const extMap = {
+  jpeg:     'jpg',
+  png:      'png',
+  tiff:     'tiff',
+  gif:      'gif',
+  bmp:      'bmp',
+  pdf:      'pdf',
+  jpeg2000: 'jp2',
+}
+
   // states
   let selectedFiles = []
   let outputDir     = null
@@ -65,7 +75,7 @@ const previewName        = document.getElementById('previewName')
           value="${getFileStem(filePath)}"
           placeholder="New name (no extension)"
         />
-        <span class="rename-item__ext">.${formatSelect.value}</span>
+        <span class="rename-item__ext">.${extMap[formatSelect.value]}</span>
       `
       renameList.appendChild(li)
     })
@@ -101,7 +111,7 @@ const previewName        = document.getElementById('previewName')
 // Update extension labels when format changes
   formatSelect.addEventListener('change', () => {
     renameList.querySelectorAll('.rename-item__ext').forEach(el => {
-      el.textContent = `.${formatSelect.value}`
+      el.textContent = `.${extMap[formatSelect.value]}`
     })
   })
 
@@ -175,7 +185,7 @@ const previewName        = document.getElementById('previewName')
     const failed     = results.failed.length
 
     if (failed === 0) {
-      resultsLabel.textContent = `✓ Converted ${successful} of ${total} files successfully.`
+      resultsLabel.textContent = `Converted ${successful} of ${total} files successfully.`
     } else {
       const failedNames = results.failed.map(f => f.file).join(', ')
       resultsLabel.textContent = `Converted ${successful} of ${total}. Failed: ${failedNames}`
@@ -204,7 +214,7 @@ const previewName        = document.getElementById('previewName')
         previewPlaceholder.textContent = 'Loading...'
 
         const dataUrl = await window.converterApi.getPreview(filePath)
-        console.log('dataUrl received:', dataUrl ? 'yes' : 'null')  // ← tells us if preview is coming back
+        console.log('dataUrl received:', dataUrl ? 'yes' : 'null')  // tells us if preview is coming back
 
 
         if (dataUrl) {
