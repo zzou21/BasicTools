@@ -33,15 +33,6 @@ jobs:
       #   if: matrix.os == 'macos-latest'
       #   run: npx @electron/rebuild -f -w sharp
 
-      - name: Debug sharp binaries
-        if: matrix.os == 'macos-latest'
-        run: |
-          echo "=== arm64 sharp files ==="
-          ls node_modules/@img/sharp-darwin-arm64/lib/ || echo "NOT FOUND"
-          echo "=== arm64 libvips files ==="
-          ls node_modules/@img/sharp-libvips-darwin-arm64/lib/ || echo "NOT FOUND"
-
-
       - name: Import signing certificate
         if: matrix.os == 'macos-latest'
         env:
@@ -72,26 +63,17 @@ jobs:
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         run: |
           rm -rf node_modules package-lock.json
-          npm install
-          npm install --os=darwin --cpu=${{ matrix.arch }} sharp
+          npm install --include=optional
+          find node_modules -name "libvips-cpp*.dylib" || echo "NOT FOUND"
+
           npx @electron/rebuild -f -w sharp
           npm run make -- --arch=${{ matrix.arch }}
-
-
 
       # - name: Install x64 sharp binaries
       #   if: matrix.os == 'macos-latest'
       #   run: |
       #     npm install --cpu=x64 --os=darwin @img/sharp-darwin-x64
       #     npm install --cpu=x64 --os=darwin @img/sharp-libvips-darwin-x64
-
-      - name: Debug x64 sharp binaries
-        if: matrix.os == 'macos-latest'
-        run: |
-          echo "=== x64 sharp files ==="
-          ls node_modules/@img/sharp-darwin-x64/lib/ || echo "NOT FOUND"
-          echo "=== x64 libvips files ==="
-          ls node_modules/@img/sharp-libvips-darwin-x64/lib/ || echo "NOT FOUND"
 
       # - name: Build macOS (x64)
       #   if: matrix.os == 'macos-latest'
