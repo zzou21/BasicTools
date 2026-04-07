@@ -64,11 +64,14 @@ jobs:
         run: |
           rm -rf node_modules package-lock.json
           npm install --include=optional
-          npm install --cpu=${{ matrix.arch }} --os=darwin @img/sharp-darwin-${{ matrix.arch }}
-          npm install --cpu=${{ matrix.arch }} --os=darwin @img/sharp-libvips-darwin-${{ matrix.arch }}
 
-          find node_modules -name "libvips-cpp*.dylib" || echo "NOT FOUND"
+          # Force install only the target arch sharp packages, ignoring platform mismatch
+          npm install --force --cpu=${{ matrix.arch }} --os=darwin @img/sharp-darwin-${{ matrix.arch }}
+          npm install --force --cpu=${{ matrix.arch }} --os=darwin @img/sharp-libvips-darwin-${{ matrix.arch }}
 
+          # Remove the other arch to keep bundle size down
+          rm -rf node_modules/@img/sharp-darwin-$([ "${{ matrix.arch }}" = "arm64" ] && echo "x64" || echo "arm64")
+          rm -rf node_modules/@img/sharp-libvips-darwin-$([ "${{ matrix.arch }}" = "arm64" ] && echo "x64" || echo "arm64")
 
           npx @electron/rebuild -f -w sharp
           npm run make -- --arch=${{ matrix.arch }}
