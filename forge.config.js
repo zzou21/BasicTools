@@ -60,14 +60,14 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-dmg',
-      platforms: ['darwin'],
+      // platforms: ['darwin'],
       config: {
         format: 'ULFO'
       }
     },
     {
       name: '@electron-forge/maker-squirrel',
-      platforms: ['win32'],
+      // platforms: ['win32'],
       config: {
         name: 'BasicTools',
         // TODO: add Windows code signing when ready
@@ -77,7 +77,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-deb',
-      platforms: ['linux'],
+      // platforms: ['linux'],
       config: {
         options: {
           maintainer: 'Zhihui Zou',
@@ -87,7 +87,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-rpm',
-      platforms: ['linux'],
+      // platforms: ['linux'],
       config: {
         options: {
           maintainer: 'Zhihui Zou',
@@ -97,7 +97,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin']
+      // platforms: ['darwin']
     },
   ],
   plugins: [
