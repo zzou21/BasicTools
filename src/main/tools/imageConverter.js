@@ -74,7 +74,7 @@ ipcMain.handle('converter-convert', async (event, { files, format, outputDir, re
   return results
 })
 
-// Display image to the user when renaming the photos
+// display image to the user when renaming the photos
 ipcMain.handle('converter-get-preview', async (event, filePath) => {
   try {
     const previewBuffer = await sharp(filePath)
