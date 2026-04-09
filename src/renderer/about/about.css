@@ -5,7 +5,7 @@
 }
 
 .about-label {
-  font-size: 11px;
+  font-size: 16px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
@@ -16,4 +16,25 @@
   font-size: 13px;
   line-height: 1.7;
   color: var(--text-muted);
+}
+
+.about-body-subtitle{
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.about-body-content{
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+
+/* setting for tool buttons, like the homepage button */
+.tool-btn {
+  width: 30%;
+  padding: 0;
+  line-height: 2;
+  text-align: center;  
 }

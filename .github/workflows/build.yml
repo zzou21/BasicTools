@@ -6,8 +6,6 @@ on:
 jobs:
   build:
     strategy:
-      # matrix:
-      #   os: [macos-latest, windows-latest, ubuntu-latest]
       matrix:
         include:
           - os: macos-latest
@@ -61,16 +59,36 @@ jobs:
           npm install
           npm run make -- --arch=${{ matrix.arch }}
 
-
       - name: Install dependencies
         if: matrix.os != 'macos-latest'
         run: npm install
+
       - name: Make distributables (Windows and Linux)
         if: matrix.os != 'macos-latest'
         run: npm run make -- --verbose
+
+      # ---- NEW: Extract .exe from zip and stage it for release ------
+      - name: Extract Windows executable from zip
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          $zip = Get-ChildItem -Path out/make/zip -Filter "*.zip" -Recurse | Select-Object -First 1
+          Write-Host "Found zip: $($zip.FullName)"
+
+          Expand-Archive -Path $zip.FullName -DestinationPath out/make/extracted
+
+          $exe = Get-ChildItem -Path out/make/extracted -Filter "*.exe" -Recurse | Select-Object -First 1
+          Write-Host "Found exe: $($exe.FullName)"
+
+          New-Item -ItemType Directory -Force -Path out/make/release
+          Copy-Item $exe.FullName -Destination "out/make/release/$($exe.Name)"
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: out/make/**/*
+          files: |
+            out/make/**/*.dmg
+            out/make/**/*.deb
+            out/make/**/*.rpm
+            out/make/release/*.exe

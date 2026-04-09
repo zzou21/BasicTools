@@ -12,6 +12,8 @@
   </head>
   <body>
     <div class="container">
+      
+      <button class="tool-btn" data-tool="home">Back to Main Page</button>
 
       <header class="header">
         <h1 class="header__title">PDF Merger</h1>
@@ -37,8 +39,9 @@
         <p class="section__label">2. Save Location</p>
         <div class="row">
           <span id="outputDirLabel" class="dir-label">No folder selected</span>
-          <button class="action-btn" id="selectOutputDirBtn">Choose Folder</button>
         </div>
+        <button class="action-btn" id="selectOutputDirBtn">Choose Folder</button>
+
       </section>
 
       <!-- select a name for combined pdf -->
@@ -69,7 +72,6 @@
 
       <div class="divider"></div>
 
-      <button class="tool-btn" data-tool="home">Back to Main Page</button>
 
     </div>
     <script src="pdfMerger.js"></script>

@@ -12,6 +12,8 @@
   </head>
   <body>
     <div class="container">
+      
+      <button class="tool-btn" data-tool="home">Back to Main Page</button>
 
       <header class="header">
         <h1 class="header__title">Image Converter</h1>
@@ -41,7 +43,6 @@
             <option value="gif">GIF</option>
             <option value="bmp">BMP</option>
             <option value="pdf">PDF</option>
-            <option value="jpeg2000">JPEG 2000</option>
           </select>
         </div>
       </section>
@@ -51,8 +52,9 @@
         <p class="section__label">3. Output Directory</p>
         <div class="row">
           <span id="outputDirLabel" class="dir-label">Same as input files</span>
-          <button class="action-btn" id="selectOutputDirBtn">Choose Folder</button>
         </div>
+        <button class="action-btn" id="selectOutputDirBtn">Choose Folder</button>
+
       </section>
 
       <!-- Step 4: Rename (optional) -->
@@ -93,7 +95,6 @@
 
       <div class="divider"></div>
 
-      <button class="tool-btn" data-tool="home">Back to Main Page</button>
 
     </div>
     <script src="imageConverter.js"></script>

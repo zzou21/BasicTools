@@ -242,3 +242,12 @@
 .hidden {
   display: none;
 }
+
+
+/* setting for tool buttons, like the homepage button */
+.tool-btn {
+  width: 30%;
+  padding: 0;
+  line-height: 2;
+  text-align: center;  
+}

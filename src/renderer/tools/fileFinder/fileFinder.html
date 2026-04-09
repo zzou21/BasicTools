@@ -12,6 +12,7 @@
   </head>
   <body>
     <div class="container">
+      <button class="tool-btn" data-tool="home">Back to Main Page</button>
 
       <header class="header">
         <h1 class="header__title">File Finder</h1>
@@ -24,8 +25,9 @@
       <div class="section">
         <div class="dir-row">
           <span id="selectedDir" class="dir-label">No directory selected</span>
-          <button class="action-btn" id="selectDirBtn">Choose Folder</button>
         </div>
+      <button class="action-btn" id="selectDirBtn">Choose Folder</button>
+
       </div>
 
       <!-- Search Bar -->
@@ -56,11 +58,6 @@
       </div>
 
       <div class="divider"></div>
-
-      <!-- back button -->
-      <button class="tool-btn" data-tool="home">
-        Back to Main Page
-      </button>
 
     </div>
     <script src="fileFinder.js"></script>
