@@ -25,6 +25,11 @@
       <!-- Step 1: Select Files -->
       <section class="section">
         <p class="section__label">1. Select Images</p>
+        <p class="section__description"><i>Basic Tools</i> supports converting photos from these formats: HEIC/HEIF, JPEG, PNG, BMP, TIFF, and GIF.
+        <br>
+        <br>
+        To select multiple photos, press and hold the CONTROL (or COMMAND, for Mac users) key and select your photos. You should see all your selected photos highlighted in your file explorer window.
+        </p>
         <div class="row">
           <button class="action-btn" id="selectFilesBtn">Choose Files</button>
           <button class="action-btn" id="clearFilesBtn" disabled>Clear</button>
@@ -49,18 +54,18 @@
 
       <!-- Step 3: Output Directory -->
       <section class="section">
-        <p class="section__label">3. Output Directory</p>
+        <p class="section__label">3. Output Folder</p>
         <div class="row">
-          <span id="outputDirLabel" class="dir-label">Same as input files</span>
+          <span id="outputDirLabel" class="dir-label">Default: Same as input files' folder</span>
         </div>
-        <button class="action-btn" id="selectOutputDirBtn">Choose Folder</button>
+        <button class="action-btn" id="selectOutputDirBtn">Choose A Folder to Save Your Photos</button>
 
       </section>
 
       <!-- Step 4: Rename (optional) -->
       <section class="section" id="renameSection" style="display:none">
-        <p class="section__label">4. Rename Files <span class="optional">(optional)</span></p>
-        <p class="section__description">To preview each photo, click on each photo's text box that renames the photo.</p>
+        <p class="section__label">4. Rename Photos in Bulk <span class="optional">(optional)</span></p>
+        <p class="section__description">To preview each photo before renaming it, click on each photo's text box below that contains its current file name.</p>
 
             <div class="preview-area" id="previewArea">
                 <div class="preview-img-wrap">

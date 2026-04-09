@@ -25,6 +25,13 @@
       <!-- select Files -->
       <section class="section">
         <p class="section__label">1. Select PDF Files</p>
+        <p class="section__description">To select multiple files, press and hold the CONTROL (or COMMAND, for Mac users) key and select your files. You should see all your selected photos highlighted in your file explorer window.
+        <br>
+        <br>
+        You can press the "Choose PDFs" button multiple times to add files that you have forgotten to include or to merge files coming from different folders.
+        <br>
+        <br>
+        After selecting your files, drag the icon for each file to rearrange them into the order that you'd like your final merged PDF to look like.</p>
         <div class="row">
           <button class="action-btn" id="selectFilesBtn">Choose PDFs</button>
           <button class="action-btn" id="clearFilesBtn" disabled>Clear</button>
@@ -37,6 +44,7 @@
       <!-- select output Directory -->
       <section class="section">
         <p class="section__label">2. Save Location</p>
+        <p class="section__description">Where would your merged PDF to be stored at.</p>
         <div class="row">
           <span id="outputDirLabel" class="dir-label">No folder selected</span>
         </div>
@@ -47,6 +55,7 @@
       <!-- select a name for combined pdf -->
       <section class="section">
         <p class="section__label">3. Output File Name</p>
+        <p class="section__description">Optionally, give your merged PDF a name. Default: "merged.pdf". Note that, in one folder, you cannot have more than one file of the same file name, otherwise Basic Tools will overwrite your existing file.</p>
         <div class="row">
           <input
             type="text"

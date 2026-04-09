@@ -55,3 +55,10 @@ window.addEventListener('DOMContentLoaded', () => {
      - Dynamic "recently used" highlighting
      - Theme toggle (light / dark)
 ============================================================ */
+
+document.querySelectorAll('a[href^="https"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault()
+    window.api.openExternal(link.href)
+  })
+})

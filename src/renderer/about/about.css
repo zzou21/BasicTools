@@ -38,3 +38,13 @@
   line-height: 2;
   text-align: center;  
 }
+
+
+
+
+.section__description {
+  font-size: 13px;
+  text-align: left;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
